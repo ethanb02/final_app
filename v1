@@ -1,0 +1,164 @@
+var score = 0;
+var drawBitmoji=function(bitmojiX,bitmojiY,bitHeight){
+    var drawBitmojiHead=function(bitmojiX,bitmojiY,bitHeight){
+        noStroke();
+        fill(242, 203, 164);
+        rect(bitmojiX+bitHeight/100*84,bitmojiY+bitHeight/100*105,bitHeight/100*28,bitHeight         /100*35); //neck
+        fill(255,224,189); //skin tone
+        ellipse(bitmojiX+bitHeight/100*98,bitmojiY+bitHeight/100*87,+bitHeight/100*50                ,+bitHeight/100*67); //face
+        fill(255, 255, 255);  //white
+        ellipse(bitmojiX+bitHeight/100*60,bitmojiY+bitHeight/100*145,+bitHeight/100*42               ,+bitHeight/100*164); //left cheek
+        ellipse(bitmojiX+bitHeight/100*135,bitmojiY+bitHeight/100*145,+bitHeight/100*42              ,+bitHeight/100*164); //right cheek
+        ellipse(bitmojiX+bitHeight/100*88,bitmojiY+bitHeight/100*89,+bitHeight/100*10                ,+bitHeight/100*4); //left eye 
+        fill(135, 97, 97);
+        ellipse(bitmojiX+bitHeight/100*88,bitmojiY+bitHeight/100*89,+bitHeight/100*5,+bitHeight/100*4); //left iris 
+        fill(255, 255, 255);
+        ellipse(bitmojiX+bitHeight/100*108,bitmojiY+bitHeight/100*89,+bitHeight/100*10               ,+bitHeight/100*4); //right eye 
+        fill(135, 97, 97);
+        ellipse(bitmojiX+bitHeight/100*108,bitmojiY+bitHeight/100*89,+bitHeight/100*5                ,+bitHeight/100*4); //right iris 
+        strokeWeight(bitHeight/100*1);
+        stroke(97, 51, 57);
+        line(bitmojiX+bitHeight/100*117,bitmojiY+bitHeight/100*85,bitmojiX+bitHeight/100*105         ,bitmojiY+bitHeight/100*82); //eyebrows
+        line(bitmojiX+bitHeight/100*79,bitmojiY+bitHeight/100*85,bitmojiX+bitHeight/100*91           ,bitmojiY+bitHeight/100*82);
+        stroke(145, 145, 145);
+        strokeWeight(bitHeight/100*0.5);
+        fill(207, 207, 207); 
+        arc(bitmojiX+bitHeight/100*98,bitmojiY+bitHeight/100*79,+bitHeight/100*52,+bitHeight         /100*63,180,360); //hat
+        fill(247, 247, 247);
+        arc(bitmojiX+bitHeight/100*98,bitmojiY+bitHeight/100*79,+bitHeight/100*54,+bitHeight         /100*24,180,360); //hat brim
+        stroke(0, 0, 0);
+        strokeWeight(bitHeight/100*0.5);
+        fill(255,224,189);
+        bezier(bitmojiX+bitHeight/100*98,bitmojiY+bitHeight/100*91,bitmojiX+bitHeight/100*103         ,bitmojiY+bitHeight/100*94,bitmojiX+bitHeight/100*105,bitmojiY+bitHeight/100*104             ,bitmojiX+bitHeight/100*98,bitmojiY+bitHeight/100*101); //nose
+        fill(255, 255, 255);
+        arc(bitmojiX+bitHeight/100*98,bitmojiY+bitHeight/100*109,+bitHeight/100*18,+bitHeight         /100*11, 6, 176); //mouth
+        strokeWeight(bitHeight/100*0.5);
+        stroke(0, 0, 0);
+        line(bitmojiX+bitHeight/100*89,bitmojiY+bitHeight/100*109,bitmojiX+bitHeight/100*107         ,bitmojiY+bitHeight/100*109);
+    };
+    var drawBitmojiBody=function(bitmojiX,bitmojiY,bitHeight){
+        fill(0, 0, 0);
+        quad(bitmojiX+bitHeight/100*50,bitmojiY+bitHeight/100*133,bitmojiX+bitHeight/100*146,         bitmojiY+bitHeight/100*133,bitmojiX+bitHeight/100*161,bitmojiY+bitHeight/100*208             ,bitmojiX+bitHeight/100*36,bitmojiY+bitHeight/100*208); //shirt
+        fill(242, 203, 164);
+        arc(bitmojiX+bitHeight/100*98,bitmojiY+bitHeight/100*132,+bitHeight/100*36,+bitHeight         /100*16, 0, 180);
+        noStroke();
+        fill(242, 203, 164);
+        rect(bitmojiX+bitHeight/100*35,bitmojiY+bitHeight/100*176,+bitHeight/100*28,+bitHeight/100*33); //arms
+        rect(bitmojiX+bitHeight/100*134,bitmojiY+bitHeight/100*176,+bitHeight/100*28,+bitHeight/100*33);
+        strokeWeight(bitHeight/100*18);
+        stroke(255, 255, 255); //white shoulder covers 
+        line(bitmojiX+bitHeight/100*32,bitmojiY+bitHeight/100*148,bitmojiX+bitHeight/100*58          ,bitmojiY+bitHeight/100*124);
+        line(bitmojiX+bitHeight/100*165,bitmojiY+bitHeight/100*148,bitmojiX+bitHeight/100*133,bitmojiY+bitHeight/100*121);
+        strokeWeight(bitHeight/100*20);
+        stroke(255, 255, 255); //white arm covers
+        line(bitmojiX+bitHeight/100*172,bitmojiY+bitHeight/100*215,bitmojiX+bitHeight/100*162,bitmojiY+bitHeight/100*160);
+        line(bitmojiX+bitHeight/100*25,bitmojiY+bitHeight/100*215,bitmojiX+bitHeight/100*35,bitmojiY+bitHeight/100*160);
+        textSize(+bitHeight/100*31);
+        fill(179, 207, 219);
+        text("EB", bitmojiX+bitHeight/100*77, bitmojiY+bitHeight/100*186);
+    };
+drawBitmojiHead(bitmojiX,bitmojiY,bitHeight);
+drawBitmojiBody(bitmojiX,bitmojiY,bitHeight);
+};
+var currentScene = 1;
+
+var Button = function(config) {
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 150;
+    this.height = config.height || 50;
+    this.label = config.label || "Click";
+    this.onClick = config.onClick || function() {};
+};
+
+Button.prototype.draw = function() {
+    fill(118, 196, 92);
+    rect(this.x, this.y, this.width, this.height, 5);
+    fill(0, 0, 0);
+    textSize(19);
+    textAlign(LEFT, TOP);
+    text(this.label, this.x+10, this.y+this.height/4);
+};
+
+Button.prototype.isMouseInside = function() {
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+
+Button.prototype.handleMouseClick = function() {
+    if (this.isMouseInside()) {
+        this.onClick();
+    }
+};
+
+
+var btn1 = new Button({
+    x: 123,
+    y: 341,
+    label: "         Help",
+    onClick: function() {
+        currentScene = 2;
+    }
+});
+
+var btn2 = new Button({
+    x: 123,
+    y: 282,
+    label: "        Start!",
+    onClick: function() {
+        currentScene = 3;
+    }
+});
+
+
+var drawScene1 = function() {                       //Splash screen
+    background(255, 255, 255);
+    drawBitmoji(123,121,78);
+    fill(109, 0, 148);
+    textSize(29);
+    text("Greater than or Less than", 34, 62);
+    textSize(15);
+    text("Made by Ethan Boudreau", 117, 82);
+    textSize(18);
+    fill(141, 0, 176);
+    text("Press 'Start' to begin the game, or press 'Help' to see how to play. Good luck!", 31, 107, 350, 100);
+    btn2.draw();
+    btn1.draw();
+};
+
+var drawScene2 = function() {                       //Help screen
+    background(255, 255, 255);
+    fill(176, 67, 176);
+    textSize(32);
+    text("Instructions for the game...", 11, 83);
+    drawBitmoji(117,126,89);
+    btn2.draw();
+    };
+
+var drawScene3 = function() {                       //Game screen
+    background(255, 255, 255);
+    fill(176, 67, 176);
+    textSize(32);
+    text("This is the game...", 11, 83);
+    drawBitmoji(277,5,53);
+    };
+
+
+
+mouseClicked = function() {
+    btn1.handleMouseClick();
+    btn2.handleMouseClick();
+};
+
+drawScene1();
+
+draw = function() {
+    if(currentScene === 2){
+        drawScene2();
+    }
+    if(currentScene === 3){
+        drawScene3();
+    }
+};
